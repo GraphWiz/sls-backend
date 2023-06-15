@@ -15,6 +15,8 @@ functions:
     name: ${sls:stage}-proxyAi
     description: API proxy for openai functions
     timeout: 45
+    environment: 
+      OPENAI_API_KEY: ${ssm:/openai-key~true}
     events:
       - httpApi: '*'
 
