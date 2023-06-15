@@ -1,11 +1,11 @@
-service: aws-node-express-api-project
+service: sls-backend
 frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: nodejs18.x
   stage: dev
-  region: us-west-2
+  region: ap-southeast-1
 
 functions:
   api:
