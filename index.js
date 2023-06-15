@@ -21,12 +21,6 @@ app.get("/path", (req, res, next) => {
   });
 });
 
-app.use((req, res, next) => {
-  return res.status(404).json({
-    error: "Not Found",
-  });
-});
-
 app.post('/chat', async (req, res) => {
   try {
     const message = req.body.message;
@@ -36,6 +30,12 @@ app.post('/chat', async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+app.use((req, res, next) => {
+  return res.status(404).json({
+    error: "Not Found",
+  });
 });
 
 const handler = serverless(app);
