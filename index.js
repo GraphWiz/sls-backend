@@ -1,6 +1,13 @@
-const serverless = require("serverless-http");
-const express = require("express");
+import express from "express";
+import serverless from "serverless-http";
+import { ChatGPTAPI } from 'chatgpt';
+
 const app = express();
+app.use(express.json());
+
+const gpt = new ChatGPTAPI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 app.get("/", (req, res, next) => {
   return res.status(200).json({
@@ -20,4 +27,17 @@ app.use((req, res, next) => {
   });
 });
 
-module.exports.handler = serverless(app);
+app.post('/chat', async (req, res) => {
+  try {
+    const message = req.body.message;
+    const response = await gpt.sendMessage(message);
+    res.json({ response });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+const handler = serverless(app);
+export { handler };
+

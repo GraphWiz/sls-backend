@@ -17,3 +17,9 @@ functions:
     timeout: 45
     events:
       - httpApi: '*'
+
+plugins:
+  - serverless-offline
+custom:
+  serverless-offline:
+    httpPort: 4000
