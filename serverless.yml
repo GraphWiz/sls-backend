@@ -1,15 +1,20 @@
-service: aws-node-express-api-project
+service: sls-backend
 frameworkVersion: '3'
 
 provider:
   name: aws
+  deploymentMethod: direct
   runtime: nodejs18.x
-  stage: dev
-  region: us-west-2
+  stage: alpha
+  region: ap-southeast-1
+  memorySize: 256
 
 functions:
-  api:
+  proxy:
     handler: index.handler
+    name: ${sls:stage}-proxyAi
+    description: API proxy for openai functions
+    timeout: 45
     events:
       - httpApi: '*'
 
