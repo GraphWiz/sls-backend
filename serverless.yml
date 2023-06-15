@@ -12,3 +12,9 @@ functions:
     handler: index.handler
     events:
       - httpApi: '*'
+
+plugins:
+  - serverless-offline
+custom:
+  serverless-offline:
+    httpPort: 4000
