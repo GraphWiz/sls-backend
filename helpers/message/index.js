@@ -1,10 +1,16 @@
 import fs from 'fs'
-import '../resources/messages'
+import path from 'path'
+
+const msgsPath = path.resolve(path.dirname(''), 'resources/messages')
 
 function getPrompt(type, message) {
-    const path = `../resources/messages/${type}.txt`
-    let prompt = fs.readFileSync(path)
-    return `${prompt} ${message}`
+    const filePath = `${msgsPath}/${type}.txt`
+    try {
+        const prompt = fs.readFileSync(filePath)
+        return `${prompt} ${message}`
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 

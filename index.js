@@ -1,19 +1,19 @@
 import express from "express";
 import serverless from "serverless-http";
 import cors from 'cors';
-// import { json } from 'body-parser';
+
+import { getPrompt } from './helpers/message/index.js'
+
 import { ChatGPTAPI } from 'chatgpt';
 import pkg from 'body-parser';
 const { json } = pkg;
-
-import { getPrompt } from './helpers/message/index.js'
 
 const app = express();
 
 app.use(cors({
   methods: 'POST'
 }));
-
+app.use(pkg.urlencoded({ extended: true }));
 app.use(json({ limit: '5mb' }));
 
 app.use(express.json());
@@ -36,7 +36,7 @@ app.get("/path", (req, res, next) => {
 
 app.post('/chat', async (req, res) => {
   try {
-    const { type, message } = req.body
+    const { type, message } = req.body;
     const prompt = getPrompt(type, message)
     const response = await gpt.sendMessage(message, {
       systemMessage: prompt
