@@ -24,7 +24,15 @@ app.get("/path", (req, res, next) => {
 app.post('/chat', async (req, res) => {
   try {
     const message = req.body.message;
-    const response = await gpt.sendMessage(message);
+    const response = await gpt.sendMessage(message, {
+      systemMessage: `Given a message in any form, write a Mermaid script that represents it as a "graph TD" diagram.
+
+      Instructions:
+      1. Replace the placeholders [action1], [action2], ... with the actual actions.
+      2. Replace the placeholders [description1], [description2], ... with the corresponding descriptions.
+      3. Format the actions and descriptions using the format: ActionName[Description].
+      4. Connect the actions and descriptions using appropriate arrows and connectors.`
+    });
     res.json({ response });
   } catch (error) {
     console.error('Error:', error);
