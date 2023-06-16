@@ -1,8 +1,9 @@
 import express from "express";
 import serverless from "serverless-http";
 import cors from 'cors';
-import { json } from 'body-parser';
 import { ChatGPTAPI } from 'chatgpt';
+import pkg from 'body-parser';
+const { json } = pkg;
 
 const app = express();
 
