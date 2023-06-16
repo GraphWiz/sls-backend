@@ -1,6 +1,7 @@
 import express from "express";
 import serverless from "serverless-http";
 import cors from 'cors';
+import { json } from 'body-parser';
 import { ChatGPTAPI } from 'chatgpt';
 
 const app = express();
@@ -8,6 +9,8 @@ const app = express();
 app.use(cors({
   methods: 'POST'
 }));
+
+app.use(json({ limit: '5mb' }));
 
 app.use(express.json());
 
@@ -31,13 +34,10 @@ app.post('/chat', async (req, res) => {
   try {
     const message = req.body.message;
     const response = await gpt.sendMessage(message, {
-      systemMessage: `Given a message in any form, write a Mermaid script that represents it as a "graph TD" diagram.
-
+      systemMessage: `Given a Prisma schema, write a Mermaid script that represents it as a "ERD" diagram.
       Instructions:
-      1. Replace the placeholders [action1], [action2], ... with the actual actions.
-      2. Replace the placeholders [description1], [description2], ... with the corresponding descriptions.
-      3. Format the actions and descriptions using the format: ActionName[Description].
-      4. Connect the actions and descriptions using appropriate arrows and connectors.`
+      1. Hide the [entities]
+      2. Include the model definitions`
     });
     res.json({ response });
   } catch (error) {
