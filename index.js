@@ -1,19 +1,17 @@
 import express from "express";
 import serverless from "serverless-http";
 import cors from 'cors';
-
 import { getPrompt } from './helpers/message/index.js'
-
 import { ChatGPTAPI } from 'chatgpt';
-import pkg from 'body-parser';
-const { json } = pkg;
+import bodyParser from 'body-parser';
+const { json } = bodyParser;
 
 const app = express();
 
 app.use(cors({
   methods: 'POST'
 }));
-app.use(pkg.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(json({ limit: '5mb' }));
 
 app.use(express.json());
