@@ -1,0 +1,6 @@
+Using this instructions,
+1. Generate a Mermaid script for a graph TD representing the given Prisma schema.
+2. Do not include [entities]
+3. Use the word "NEWLINE" instead of new lines.
+
+Schema: 
