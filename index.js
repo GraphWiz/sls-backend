@@ -1,16 +1,17 @@
 import express from "express";
 import serverless from "serverless-http";
 import cors from 'cors';
+import { getPrompt } from './helpers/message/index.js'
 import { ChatGPTAPI } from 'chatgpt';
-import pkg from 'body-parser';
-const { json } = pkg;
+import bodyParser from 'body-parser';
+const { json } = bodyParser;
 
 const app = express();
 
 app.use(cors({
   methods: 'POST'
 }));
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(json({ limit: '5mb' }));
 
 app.use(express.json());
@@ -33,19 +34,10 @@ app.get("/path", (req, res, next) => {
 
 app.post('/chat', async (req, res) => {
   try {
-    const message = req.body.message;
+    const { type, message } = req.body;
+    const prompt = getPrompt(type, message)
     const response = await gpt.sendMessage(message, {
-      systemMessage: `Instructions:
-      1. Write a Mermaid script that represents the given Prisma schema as an Entity-Relationship Diagram (ERD). 
-      2. The ERD diagram should include the relationships between entities and their attributes. 
-      3. Hide the [entities].
-      4. Include the model definitions where they are enclosed in curly braces "{}", and the properties are listed inside with their respective data types. 
-      5. Do not use colons in the models, use spaces instead. 
-      6. Do not use colons within the curly braces "{}". 
-      7. Use colons in the ER diagram itself and define relationships. 
-      8. For "String" data types, do not put question marks "?" at the end. 
-      9. Enclose the relationships in the ER diagram in double quotation marks '""'.
-      Schema:`
+      systemMessage: prompt
     });
     res.json({ response });
   } catch (error) {
