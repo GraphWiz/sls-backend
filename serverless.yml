@@ -16,7 +16,7 @@ functions:
     description: API proxy for openai functions
     timeout: 45
     environment: 
-      OPENAI_API_KEY: ${ssm:/openai-key}
+      OPENAI_API_KEY: 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
     events:
       - httpApi: '*'
 
