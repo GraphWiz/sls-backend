@@ -35,7 +35,13 @@ app.get("/path", (req, res, next) => {
 app.post('/chat', async (req, res) => {
   try {
     const { type, message } = req.body;
-    const prompt = getPrompt(type, message)
+    const graphType = type || 'erd';
+
+    if (!message) {
+      res.status(400).json({ error: 'Message is required' });
+    }
+
+    const prompt = getPrompt(graphType, message);
     const response = await gpt.sendMessage(message, {
       systemMessage: prompt
     });
