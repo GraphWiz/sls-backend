@@ -36,6 +36,7 @@ app.post('/chat', async (req, res) => {
   try {
     const { type, message } = req.body;
     const prompt = getPrompt(type, message)
+    console.log('Prompt:', prompt);
     const response = await gpt.sendMessage(message, {
       systemMessage: prompt
     });
