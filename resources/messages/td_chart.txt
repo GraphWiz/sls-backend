@@ -1,0 +1,4 @@
+Instructions:
+1. Write a Mermaid script that represents the given Prisma schema as a TD Chart.
+
+Schema:
