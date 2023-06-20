@@ -1,6 +1,30 @@
+use this sample mermaid script generated from prisma schema to graph td as correct reference:
+graph TD;
+Animal-->id;
+Animal-->name;
+Animal-->species;
+Animal-->age;
+Animal-->description;
+Animal-->habitat;
+Animal-->owners;
+Animal-->events;
+Habitat-->id;
+Habitat-->name;
+Habitat-->location;
+Habitat-->animals;
+User-->id;
+User-->name;
+User-->animals;
+Event-->id;
+Event-->title;
+Event-->description;
+Event-->date;
+Event-->animals;
+
 Using this instructions,
 1. Generate a Mermaid script for a graph TD representing the given Prisma schema.
 2. Do not include [entities]
 3. Use the word "NEWLINE" instead of new lines.
+4. Return only the generated mermaid script
 
 Schema: 
