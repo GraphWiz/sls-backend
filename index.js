@@ -12,9 +12,7 @@ app.use(cors({ methods: 'POST' }));
 app.use(urlencoded({ extended: true }));
 app.use(json({ limit: '5mb' }));
 
-const gpt = new ChatGPTAPI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+
 
 app.get('/', (_, res) => {
   res.status(200).json({ message: 'Hello from root!' });
@@ -26,8 +24,20 @@ app.get('/path', (_, res) => {
 
 app.post('/chat', async (req, res) => {
   try {
-    const { type, message } = req.body;
+    const { type, message, model } = req.body;
     const prompt = getPrompt(type, message);
+    
+    const modelToUse = model || 'gpt-3.5-turbo';
+
+    const gpt = new ChatGPTAPI({
+      apiKey: process.env.OPENAI_API_KEY,
+      completionParams: {
+        model: modelToUse,
+        temperature: 0.5,
+        top_p: 0.8
+      }
+    });
+
     const response = await gpt.sendMessage(message, {
       systemMessage: prompt
     });

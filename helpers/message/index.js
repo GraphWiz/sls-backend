@@ -9,7 +9,7 @@ function getPrompt(type, message) {
         const prompt = fs.readFileSync(filePath)
         return `${prompt} ${message}`
     } catch (error) {
-        console.log(error)
+        console.error("EVENT\n" + JSON.stringify(error, null, 2));
     }
 }
 
