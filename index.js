@@ -2,6 +2,7 @@ import express from 'express';
 import serverless from 'serverless-http';
 import cors from 'cors';
 import { getPrompt } from './helpers/message/index.js';
+import { verifyAPIToken } from './middleware/auth.js';
 import { ChatGPTAPI } from 'chatgpt';
 import bodyParser from 'body-parser';
 
@@ -12,8 +13,6 @@ app.use(cors({ methods: 'POST' }));
 app.use(urlencoded({ extended: true }));
 app.use(json({ limit: '5mb' }));
 
-
-
 app.get('/', (_, res) => {
   res.status(200).json({ message: 'Hello from root!' });
 });
@@ -22,7 +21,7 @@ app.get('/path', (_, res) => {
   res.status(200).json({ message: 'Hello from path!' });
 });
 
-app.post('/chat', async (req, res) => {
+app.post('/chat', verifyAPIToken, async (req, res) => {
   try {
     const { type, message, model } = req.body;
     const prompt = getPrompt(type, message);
