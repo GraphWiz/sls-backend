@@ -1,5 +1,39 @@
-Instructions:
-1. Write a Mermaid script that represents the given Prisma schema as a Class Diagram.
+use this sample mermaid script generated from prisma schema to Class Diagram as correct reference:
+
+classDiagram
+    User --|> Post : has many
+    User --|> Comment : has many
+    Post --|> Comment : has many
+    Post --|> User : belongs to
+    Comment --|> Post : belongs to
+    Comment --|> User : belongs to
+    class User {
+        + id : Int
+        + username : String
+        + email : String
+        + posts : Post[]
+        + comments : Comment[]
+    }
+    class Post {
+        + id : Int
+        + title : String
+        + content : String
+        + createdAt : DateTime
+        + updatedAt : DateTime
+        + authorId : Int
+        + comments : Comment[]
+    }
+    class Comment {
+        + id : Int
+        + content : String
+        + createdAt : DateTime
+        + updatedAt : DateTime
+        + postId : Int
+        + userId : Int
+    }
+
+Using this instructions,
+1. Generate a Mermaid script for a Class Diagram representing the given Prisma schema.
 2. Return only the generated mermaid script
 
 Schema:

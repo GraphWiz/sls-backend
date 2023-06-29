@@ -1,11 +1,20 @@
-Instructions:
-1. Write a Mermaid script that represents the given Prisma schema as an Entity-Relationship Diagram (ERD). 
-2. The ERD diagram should include the relationships between entities and their attributes. 
-3. Hide the [entities].
-4. Include the model definitions where they are enclosed in curly braces "{}", and the properties are listed inside with their respective data types. 
-5. Do not use colons in the models, use spaces instead. 
-6. Do not use colons within the curly braces "{}". 
-7. Use colons in the ER diagram itself and define relationships. 
-8. For "String" data types, do not put question marks "?" at the end. 
-9. Enclose the relationships in the ER diagram in double quotation marks '""'.
-Schema:
+use this sample mermaid script generated from prisma schema to ER Diagram as correct reference:
+erDiagram
+User ||--o{ Post : "author"
+Post ||--|{ Comment : "comments"
+Post ||--o{ Like : "likes"
+Post ||--|{ Category : "categories"
+User ||--o{ Follower : "followers"
+User ||--o{ Follower : "following"
+User ||--o{ Address : "address"
+User ||--o{ Order : "orders"
+Order ||--|{ OrderItem : "items"
+Product ||--o{ OrderItem : "ordered"
+
+Using this instructions,
+1. Generate a Mermaid script for a ER Diagram representing the given Prisma schema.
+2. Do not include [entities]
+3. Use the word "NEWLINE" instead of new lines.
+4. Return only the generated mermaid script
+
+Schema: 
