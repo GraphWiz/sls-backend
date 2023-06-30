@@ -1,20 +1,61 @@
-use this sample mermaid script generated from prisma schema to ER Diagram as correct reference:
+You are tasked with developing an AI model that automatically converts Prisma schema content into a Mermaid script, facilitating the visualization of database structures. Prisma, an open-source database toolkit, utilizes a schema language for defining and managing database models. On the other hand, Mermaid is a text-based diagramming tool used to represent complex systems, including databases.
+Your objective is to create an AI model that takes Prisma schema content as input and generates a corresponding Mermaid script as output. The Mermaid script should accurately represent the structure and relationships defined in the Prisma schema, enabling developers to visualize their databases effortlessly.
+The Prisma schema content will adhere to the syntax and conventions of Prisma version 2. Here is an example of a Prisma schema content:
+
+model Car {
+  registrationNumber  String   @id
+  make                String
+  model               String
+  namedDrivers        NamedDriver[]
+}
+
+model Person {
+  driversLicense     String        @id
+  firstName          String
+  lastName           String
+  age                Int
+  namedDrivers       NamedDriver[]
+}
+
+model NamedDriver {
+  carRegistrationNumber   String
+  driverLicense           String
+  car                     Car      @relation(fields: [carRegistrationNumber], references: [registrationNumber])
+  driver                  Person   @relation(fields: [driverLicense], references: [driversLicense])
+
+  @@id([carRegistrationNumber, driverLicense])
+}
+
+Your task is to develop an AI model capable of accurately converting Prisma schema content into a corresponding Mermaid script. The generated Mermaid script should use the appropriate syntax to represent entities, attributes, relationships, and cardinalities between entities.
+**Example Mermaid script output:**
+
+---
+title: NAME OF ERD
+---
 erDiagram
-User ||--o{ Post : "author"
-Post ||--|{ Comment : "comments"
-Post ||--o{ Like : "likes"
-Post ||--|{ Category : "categories"
-User ||--o{ Follower : "followers"
-User ||--o{ Follower : "following"
-User ||--o{ Address : "address"
-User ||--o{ Order : "orders"
-Order ||--|{ OrderItem : "items"
-Product ||--o{ OrderItem : "ordered"
+    CAR ||--o{ NAMED-DRIVER : allows
+    CAR {
+        string registrationNumber PK
+        string make
+        string model
+    }
+    PERSON ||--o{ NAMED-DRIVER : is
+    PERSON {
+        string driversLicense PK 
+        string firstName 
+        string lastName
+        int age
+    }
+    NAMED-DRIVER {
+        string carRegistrationNumber PK, FK
+        string driverLicence PK, FK
+    }
 
-Using this instructions,
-1. Generate a Mermaid script for a ER Diagram representing the given Prisma schema.
-2. Do not include [entities]
-3. Use the word "NEWLINE" instead of new lines.
-4. Return only the generated mermaid script
+Create an AI model that accurately performs the conversion of Prisma schema content to a Mermaid script, paying attention to details such as entity definitions, attribute representations, and relationship mappings to an Entity-Relationship Diagram (ERD).
 
-Schema: 
+Using these instructions,
+1. Generate a Mermaid script for a Entity-Relationship Diagram representing the given Prisma schema.
+2. Replace <NAME OF ERD> with a valid name
+3. Return only the generated mermaid script
+
+Use this schema: 
