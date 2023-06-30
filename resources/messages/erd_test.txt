@@ -2,30 +2,29 @@ You are tasked with developing an AI model that automatically converts Prisma sc
 Your objective is to create an AI model that takes Prisma schema content as input and generates a corresponding Mermaid script as output. The Mermaid script should accurately represent the structure and relationships defined in the Prisma schema, enabling developers to visualize their databases effortlessly.
 The Prisma schema content will adhere to the syntax and conventions of Prisma version 2. Here is an example of a Prisma schema content:
 
-```
 model Car {
-  registrationNumber String @id
-  make String
-  model String
-  namedDrivers NamedDriver[]
+  registrationNumber  String   @id
+  make                String
+  model               String
+  namedDrivers        NamedDriver[]
 }
 
 model Person {
-  id Int @id @default(autoincrement())
-  firstName String
-  lastName String
-  age Int
-  namedDriver NamedDriver?
+  driversLicense     String        @id
+  firstName          String
+  lastName           String
+  age                Int
+  namedDrivers       NamedDriver[]
 }
 
 model NamedDriver {
-  id Int @id @default(autoincrement())
-  carRegistrationNumber String
-  personId Int
-  car Car @relation(fields: [carRegistrationNumber], references: [registrationNumber])
-  person Person @relation(fields: [personId], references: [id])
+  carRegistrationNumber   String
+  driverLicense           String
+  car                     Car      @relation(fields: [carRegistrationNumber], references: [registrationNumber])
+  driver                  Person   @relation(fields: [driverLicense], references: [driversLicense])
+
+  @@id([carRegistrationNumber, driverLicense])
 }
-```
 
 Your task is to develop an AI model capable of accurately converting Prisma schema content into a corresponding Mermaid script. The generated Mermaid script should use the appropriate syntax to represent entities, attributes, relationships, and cardinalities between entities.
 **Example Mermaid script output:**
@@ -36,15 +35,20 @@ title: NAME OF ERD
 erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
-        string registrationNumber
+        string registrationNumber PK
         string make
         string model
     }
     PERSON ||--o{ NAMED-DRIVER : is
     PERSON {
-        string firstName
+        string driversLicense PK 
+        string firstName 
         string lastName
         int age
+    }
+    NAMED-DRIVER {
+        string carRegistrationNumber PK, FK
+        string driverLicence PK, FK
     }
 
 Create an AI model that accurately performs the conversion of Prisma schema content to a Mermaid script, paying attention to details such as entity definitions, attribute representations, and relationship mappings to an Entity-Relationship Diagram (ERD).
