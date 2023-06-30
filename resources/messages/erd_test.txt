@@ -30,8 +30,8 @@ model NamedDriver {
 Your task is to develop an AI model capable of accurately converting Prisma schema content into a corresponding Mermaid script. The generated Mermaid script should use the appropriate syntax to represent entities, attributes, relationships, and cardinalities between entities.
 **Example Mermaid script output:**
 
-```
-title: ERD
+---
+title: NAME OF ERD
 ---
 erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
@@ -46,11 +46,12 @@ erDiagram
         string lastName
         int age
     }
-```
+
 Create an AI model that accurately performs the conversion of Prisma schema content to a Mermaid script, paying attention to details such as entity definitions, attribute representations, and relationship mappings to an Entity-Relationship Diagram (ERD).
 
 Using these instructions,
 1. Generate a Mermaid script for a Entity-Relationship Diagram representing the given Prisma schema.
-2. Return only the generated mermaid script
+2. Replace <NAME OF ERD> with a valid name
+3. Return only the generated mermaid script
 
 Use this schema: 
