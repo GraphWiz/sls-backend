@@ -3,19 +3,27 @@ Your objective is to create an AI model that takes Prisma schema content as inpu
 The Prisma schema content will adhere to the syntax and conventions of Prisma version 2. Here is an example of a Prisma schema content:
 
 ```
-model User {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  posts Post[]
+model Car {
+  registrationNumber String @id
+  make String
+  model String
+  namedDrivers NamedDriver[]
 }
 
-model Post {
+model Person {
   id Int @id @default(autoincrement())
-  title String
-  content String?
-  user User @relation(fields: [userId], references: [id])
-  userId Int
+  firstName String
+  lastName String
+  age Int
+  namedDriver NamedDriver?
+}
+
+model NamedDriver {
+  id Int @id @default(autoincrement())
+  carRegistrationNumber String
+  personId Int
+  car Car @relation(fields: [carRegistrationNumber], references: [registrationNumber])
+  person Person @relation(fields: [personId], references: [id])
 }
 ```
 
@@ -26,20 +34,23 @@ Your task is to develop an AI model capable of accurately converting Prisma sche
 title: ERD
 ---
 erDiagram
-  entity User {
-    id Int PK
-    name String
-    email String
-  }
-
-  entity Post {
-    id Int PK
-    title String
-    content String
-    userId Int FK
-  }
-
-  User ||--o{ Post : "posts"
+    CAR ||--o{ NAMED-DRIVER : allows
+    CAR {
+        string registrationNumber
+        string make
+        string model
+    }
+    PERSON ||--o{ NAMED-DRIVER : is
+    PERSON {
+        string firstName
+        string lastName
+        int age
+    }
 ```
-
 Create an AI model that accurately performs the conversion of Prisma schema content to a Mermaid script, paying attention to details such as entity definitions, attribute representations, and relationship mappings to an Entity-Relationship Diagram (ERD).
+
+Using these instructions,
+1. Generate a Mermaid script for a Entity-Relationship Diagram representing the given Prisma schema.
+2. Return only the generated mermaid script
+
+Use this schema: 
