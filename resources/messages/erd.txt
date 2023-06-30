@@ -56,6 +56,7 @@ Create an AI model that accurately performs the conversion of Prisma schema cont
 Using these instructions,
 1. Generate a Mermaid script for a Entity-Relationship Diagram representing the given Prisma schema.
 2. Replace <NAME OF ERD> with a valid name
-3. Return only the generated mermaid script
+3. Strictly use only FK or PK in the 3rd section of the field
+4. Return only the generated mermaid script
 
 Use this schema: 
