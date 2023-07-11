@@ -11,7 +11,7 @@ const { json, urlencoded } = bodyParser;
 
 app.use(cors({ methods: 'POST' }));
 app.use(urlencoded({ extended: true }));
-app.use(json({ limit: '5mb' }));
+app.use(json({ limit: '18mb' }));
 
 app.get('/', (_, res) => {
   res.status(200).json({ message: 'Hello from root!' });
@@ -44,6 +44,9 @@ app.post('/chat', verifyAPIToken, async (req, res) => {
     const response = await gpt.sendMessage(message, {
       systemMessage: prompt
     });
+    console.log("RESPONSE\n" + JSON.stringify({
+      response
+    }));
     res.json({ response });
   } catch (error) {
     console.error("EVENT\n" + JSON.stringify(error, null, 2));
