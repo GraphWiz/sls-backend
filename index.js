@@ -48,8 +48,7 @@ app.post('/chat', verifyAPIToken, async (req, res) => {
       response
     }));
 
-    return JSON.stringify({response});
-    res.json({ response });
+    return res.json({ response });
   } catch (error) {
     console.error("EVENT\n" + JSON.stringify(error, null, 2));
     res.status(500).json({ error: 'Function Error: See Cloudwatch Logs' });
