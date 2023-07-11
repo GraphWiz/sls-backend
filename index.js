@@ -37,6 +37,10 @@ app.post('/chat', verifyAPIToken, async (req, res) => {
       }
     });
 
+    console.log("LOG\n" + JSON.stringify({
+      modelToUse,
+      type
+    }));
     const response = await gpt.sendMessage(message, {
       systemMessage: prompt
     });

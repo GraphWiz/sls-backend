@@ -14,7 +14,7 @@ functions:
     handler: index.handler
     name: ${sls:stage}-proxyAi
     description: API proxy for openai functions
-    timeout: 45
+    timeout: 30
     environment: 
       OPENAI_API_KEY: ${ssm:/openai-key}
       API_SECRET_KEY: 'JJn0JXrR43aqMnR1qDHJQyklVc/ttC71W52F58jUpIkJRO+pMPHiNYyG4JGXpvYiXBEj3+Jy5vp2dSh197YhY40Jr1H1YHYWXT7LNrar7RSshWhxQNa8vz5NgFNhLMdcP23ukO3xklYPs6PJsvcFw6zQgQAjjcdTboFYPFlxwSo='
@@ -23,6 +23,11 @@ functions:
 
 plugins:
   - serverless-offline
+  - serverless-prune-plugin
+
 custom:
   serverless-offline:
     httpPort: 4000
+  prune:
+    automatic: true
+    number: 2
