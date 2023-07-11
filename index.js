@@ -47,6 +47,8 @@ app.post('/chat', verifyAPIToken, async (req, res) => {
     console.log("RESPONSE\n" + JSON.stringify({
       response
     }));
+
+    return JSON.stringify({response});
     res.json({ response });
   } catch (error) {
     console.error("EVENT\n" + JSON.stringify(error, null, 2));
