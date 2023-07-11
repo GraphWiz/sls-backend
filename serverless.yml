@@ -7,14 +7,14 @@ provider:
   runtime: nodejs18.x
   stage: alpha
   region: ap-southeast-1
-  memorySize: 512
+  memorySize: 256
 
 functions:
   proxy:
     handler: index.handler
     name: ${sls:stage}-proxyAi
     description: API proxy for openai functions
-    timeout: 55
+    timeout: 120
     environment: 
       OPENAI_API_KEY: ${ssm:/openai-key}
       API_SECRET_KEY: 'JJn0JXrR43aqMnR1qDHJQyklVc/ttC71W52F58jUpIkJRO+pMPHiNYyG4JGXpvYiXBEj3+Jy5vp2dSh197YhY40Jr1H1YHYWXT7LNrar7RSshWhxQNa8vz5NgFNhLMdcP23ukO3xklYPs6PJsvcFw6zQgQAjjcdTboFYPFlxwSo='
