@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 function verifyAPIToken(req, res, next) {
   const secretKey = process.env.API_SECRET_KEY;
-  const token = req.headers['x-api-header'];
+  const token = req.headers['x-api-key'];
 
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
